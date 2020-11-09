@@ -1,0 +1,7 @@
+{
+  "name": "Roblox Studio Theme Importer",
+  "id": "907723620041179944",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html"
+}
