@@ -1,17 +1,48 @@
-<h2>Rectangle Creator</h2>
-<p>Count: <input id="count" value="5"></p>
-<button id="create">Create</button>
-<button id="cancel">Cancel</button>
+<div id="main">
+  <textarea
+    id="json-data"
+    placeholder="Paste JSON data here"
+  ></textarea>
+
+  <button id="submit">
+    Create Styles
+  </button>
+</div>
+
 <script>
+  const content = document.querySelector("#json-data")
+  const submit = document.querySelector("#submit")
 
-document.getElementById('create').onclick = () => {
-  const textbox = document.getElementById('count');
-  const count = parseInt(textbox.value, 10);
-  parent.postMessage({ pluginMessage: { type: 'create-rectangles', count } }, '*')
-}
+  submit.addEventListener("click", evt => {
+    evt.preventDefault()
 
-document.getElementById('cancel').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
-}
-
+    parent.postMessage({
+      pluginMessage: {
+        type: "import-theme",
+        payload: content.value,
+      }
+    }, "*")
+  })
 </script>
+
+<style>
+  body {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    max-height: -webkit-fill-available;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 3;
+  }
+
+  #main {
+    display: grid;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  #json-data {
+    min-height: 400px;
+  }
+</style>

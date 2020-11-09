@@ -1,11 +1,15 @@
 {
-  "name": "Roblox-Studio-Theme-Importer",
+  "name": "figma-roblox-studio-theme-importer",
   "version": "1.0.0",
-  "description": "Your Figma Plugin",
+  "description": "Import Roblox Studio Theme colours to Figma",
   "main": "code.js",
   "scripts": {
     "build": "tsc -p tsconfig.json"
   },
   "author": "",
-  "license": ""
+  "license": "",
+  "devDependencies": {
+    "@figma/plugin-typings": "^1.18.2",
+    "typescript": "^4.0.5"
+  }
 }

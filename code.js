@@ -1,1 +1,29 @@
-throw new Error("This plugin template uses Typescript. Follow the instructions in `README.md` to generate `code.js`.")
+figma.showUI(__html__);
+function HEXToRGB(hexCode) {
+    let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hexCode);
+    return result && {
+        r: parseInt(result[1], 16) / 255,
+        g: parseInt(result[2], 16) / 255,
+        b: parseInt(result[3], 16) / 255,
+    };
+}
+figma.ui.onmessage = message => {
+    if (message.type === "import-theme") {
+        const data = JSON.parse(message.payload);
+        let processedStyles = 0;
+        for (let [styleName, styleColour] of Object.entries(data)) {
+            const styleRGB = HEXToRGB(styleColour);
+            const stylePaint = {
+                type: "SOLID",
+                color: styleRGB,
+                opacity: 1,
+            };
+            const newStyle = figma.createPaintStyle();
+            newStyle.name = styleName;
+            newStyle.paints = [stylePaint];
+            processedStyles++;
+        }
+        return figma.closePlugin(`Successfully imported ${processedStyles} styles`);
+    }
+    figma.closePlugin();
+};
